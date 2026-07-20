@@ -915,8 +915,7 @@ Item {
         elide: Text.ElideRight
         textFormat: Text.PlainText
         verticalAlignment: Text.AlignVCenter
-        maximumLineCount: Plasmoid.configuration.maxTextLines ||
-            undefined
+        maximumLineCount: Plasmoid.configuration.maxTextLines > 0 ? Plasmoid.configuration.maxTextLines : 1
         font.family: (Plasmoid.configuration.useCustomLabelFontSize && Plasmoid.configuration.customLabelFontFamily !== "") ? Plasmoid.configuration.customLabelFontFamily : Kirigami.Theme.defaultFont.family
         font.pointSize: (Plasmoid.configuration.useCustomLabelFontSize && Plasmoid.configuration.customLabelFontSize > 0) ? Plasmoid.configuration.customLabelFontSize : Kirigami.Theme.defaultFont.pointSize
 
