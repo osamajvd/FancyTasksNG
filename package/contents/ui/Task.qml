@@ -720,14 +720,34 @@ Item {
         visible: (!task.model || task.model.IsLauncher || task.model.IsDemandingAttention || task.model.IsActive || backgroundFrame.isHovered) ?
             true : !Plasmoid.configuration.disableButtonInactiveSvg
 
-        layer.enabled: (!task.model || task.model.IsLauncher || !Plasmoid.configuration.buttonColorize) ? false :
+        Rectangle {
+            id: buttonMask
+            x: -9999
+            y: -9999
+            width: backgroundFrame.width
+            height: backgroundFrame.height
+            radius: Plasmoid.configuration.customHoverOverlayRadius
+            color: "black"
+            visible: true
+            antialiasing: true
+            layer.enabled: true
+            layer.smooth: true
+        }
+
+        layer.enabled: Plasmoid.configuration.customHoverOverlayRadius > 0 ||
+                       ((!task.model || task.model.IsLauncher || !Plasmoid.configuration.buttonColorize) ? false :
                        (task.model.IsDemandingAttention && !backgroundFrame.isHovered) ? false :
                        (task.model.IsActive || backgroundFrame.isHovered) ? true :
-                       (!Plasmoid.configuration.disableButtonInactiveSvg && Plasmoid.configuration.buttonColorizeInactive)
+                       (!Plasmoid.configuration.disableButtonInactiveSvg && Plasmoid.configuration.buttonColorizeInactive))
 
         layer.effect: MultiEffect {
+            maskEnabled: Plasmoid.configuration.customHoverOverlayRadius > 0
+            maskSource: buttonMask
+            maskThresholdMin: 0.5
+            maskSpreadAtMin: 1.0
+
             brightness: 1.0
-            colorization: 1.0
+            colorization: Plasmoid.configuration.buttonColorize ? 1.0 : 0.0
             colorizationColor: Plasmoid.configuration.buttonColorizeDominant ?
                 backgroundFrame.indicatorColor : Plasmoid.configuration.buttonColorizeCustom
         }
@@ -899,6 +919,7 @@ Item {
     Rectangle {
         id: customHoverOverlay
         anchors.fill: backgroundFrame
+        radius: Plasmoid.configuration.customHoverOverlayRadius
         color: "#ffffff"
         opacity: (task.highlighted && Plasmoid.configuration.taskHoverEffect && Plasmoid.configuration.customHoverOverlayEnabled) ? (Plasmoid.configuration.customHoverOverlayOpacity / 100) : 0.0
         visible: opacity > 0

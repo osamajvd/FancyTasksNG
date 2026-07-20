@@ -176,6 +176,21 @@ ConfigPage {
                 }
             }
 
+            RowLayout {
+                spacing: Kirigami.Units.smallSpacing
+                Label {
+                    text: Wrappers.i18n("Button corner radius (px):")
+                }
+                SpinBox {
+                    id: cfg_customHoverOverlayRadius
+                    from: 0
+                    to: 50
+                    stepSize: 1
+                    value: cfg_page.cfg_customHoverOverlayRadius
+                    onValueModified: cfg_page.cfg_customHoverOverlayRadius = value
+                }
+            }
+
             Item { 
                 height: Kirigami.Units.largeSpacing 
             }

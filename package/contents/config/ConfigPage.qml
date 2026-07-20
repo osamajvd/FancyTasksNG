@@ -79,6 +79,8 @@ Kirigami.Page {
     property bool cfg_customHoverOverlayEnabledDefault: false
     property int cfg_customHoverOverlayOpacity: 10
     property int cfg_customHoverOverlayOpacityDefault: 10
+    property int cfg_customHoverOverlayRadius: 0
+    property int cfg_customHoverOverlayRadiusDefault: 0
     property int cfg_maxTextLines: 1
     property int cfg_maxTextLinesDefault: 1
     property bool cfg_minimizeActiveTaskOnClick: true
