@@ -57,15 +57,16 @@ Item {
     readonly property real distanceToCursor: (virtualCursorIndex !== -1 && myIndex !== -1) ? Math.abs(myIndex - virtualCursorIndex) : -1
 
     readonly property real zoomMultiplier: {
+        if (!Plasmoid.configuration.taskHoverEffect || Plasmoid.configuration.iconZoomFactor === 0 || !iconBox._iconsOnly) {
+            return 0.0;
+        }
         if (iconBox._contextMenuOpen) {
             return 1.0;
         }
-        if (iconBox.tasksRootContext && iconBox.tasksRootContext.currentHoveredTask === iconBox.taskItem) {
-            if (iconBox.tasksRootContext.isTooltipHovered || iconBox.tasksRootContext.instantHoveredIndex === -1) {
-                return 1.0;
-            }
+        if (iconBox.tasksRootContext && iconBox.tasksRootContext.currentHoveredTask === iconBox.taskItem && iconBox.tasksRootContext.isTooltipHovered) {
+            return 1.0;
         }
-        if (hoveredIndex === -1 || myIndex === -1 || !iconBox._iconsOnly || !Plasmoid.configuration.taskHoverEffect) {
+        if (hoveredIndex === -1 || myIndex === -1) {
             return 0.0;
         }
 
