@@ -26,7 +26,7 @@ Item {
     property alias icon: innerIcon
     property bool active: innerIcon.active
 
-    readonly property bool _iconsOnly: iconBox.tasksRootContext ? iconBox.tasksRootContext.iconsOnly : true
+    readonly property bool _iconsOnly: iconBox.tasksRootContext ? (iconBox.tasksRootContext.iconsOnly || (iconBox._taskHasModel && iconBox.taskItem.model.IsLauncher)) : true
     readonly property real _trHeight: iconBox.tasksRootContext ? iconBox.tasksRootContext.height : 0
     readonly property var _trTaskFrame: iconBox.tasksRootContext ? iconBox.tasksRootContext.taskFrame : null
     
