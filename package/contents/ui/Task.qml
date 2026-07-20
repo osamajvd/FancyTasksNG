@@ -814,6 +814,21 @@ Item {
         }
     }
 
+    Rectangle {
+        id: customHoverOverlay
+        anchors.fill: backgroundFrame
+        radius: Plasmoid.configuration.customHoverOverlayRadius
+        color: "#ffffff"
+        opacity: (task.highlighted && Plasmoid.configuration.taskHoverEffect && Plasmoid.configuration.customHoverOverlayOpacity > 0) ? (Plasmoid.configuration.customHoverOverlayOpacity / 100) : 0.0
+        visible: opacity > 0
+        z: 1
+        antialiasing: true
+
+        Behavior on opacity {
+            NumberAnimation { duration: 150 }
+        }
+    }
+
     Loader {
         id: taskProgressOverlayLoader
 
@@ -913,21 +928,6 @@ Item {
             PropertyChanges {
                 label.text: task.model.display
             }
-        }
-    }
-
-    Rectangle {
-        id: customHoverOverlay
-        anchors.fill: backgroundFrame
-        radius: Plasmoid.configuration.customHoverOverlayRadius
-        color: "#ffffff"
-        opacity: (task.highlighted && Plasmoid.configuration.taskHoverEffect && Plasmoid.configuration.customHoverOverlayEnabled) ? (Plasmoid.configuration.customHoverOverlayOpacity / 100) : 0.0
-        visible: opacity > 0
-        z: 99
-        antialiasing: true
-
-        Behavior on opacity {
-            NumberAnimation { duration: 150 }
         }
     }
 

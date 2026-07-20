@@ -215,27 +215,22 @@ ConfigPage {
                         onToggled: cfg_page.cfg_iconHoverBrighten = checked
                     }
 
-                    CheckBox {
-                        id: cfg_customHoverOverlayEnabled
-                        text: Wrappers.i18n("Highlight button with white overlay")
-                        checked: cfg_page.cfg_customHoverOverlayEnabled
-                        onToggled: cfg_page.cfg_customHoverOverlayEnabled = checked
-                    }
-
                     RowLayout {
-                        visible: cfg_customHoverOverlayEnabled.checked
-                        Item { implicitWidth: Kirigami.Units.gridUnit }
                         spacing: Kirigami.Units.smallSpacing
                         Label {
-                            text: Wrappers.i18n("Overlay opacity (%):")
+                            text: Wrappers.i18n("Button overlay opacity (%):")
                         }
                         SpinBox {
                             id: cfg_customHoverOverlayOpacity
-                            from: 1
+                            from: 0
                             to: 100
                             stepSize: 1
                             value: cfg_page.cfg_customHoverOverlayOpacity
                             onValueModified: cfg_page.cfg_customHoverOverlayOpacity = value
+
+                            ToolTip.delay: 1000
+                            ToolTip.visible: hovered
+                            ToolTip.text: Wrappers.i18n("Opacity of the white button hover highlight (0 to disable)")
                         }
                     }
 

@@ -439,8 +439,8 @@ Item {
                                         layer.smooth: true
                                     }
 
-                                    visible: !hideDueToDecoration
-                                    layer.enabled: (mockTask.cfgReady && mockTask.cfg.cfg_customHoverOverlayRadius > 0) || hideDueToColorize
+                                    visible: !taskBackground.hideDueToDecoration
+                                    layer.enabled: (mockTask.cfgReady && mockTask.cfg.cfg_customHoverOverlayRadius > 0) || taskBackground.hideDueToColorize
                                     layer.effect: MultiEffect {
                                         maskEnabled: mockTask.cfgReady && mockTask.cfg.cfg_customHoverOverlayRadius > 0
                                         maskSource: previewButtonMask
@@ -448,12 +448,27 @@ Item {
                                         maskSpreadAtMin: 1.0
 
                                         brightness: 1.0
-                                        colorization: hideDueToColorize ? 1.0 : 0.0
+                                        colorization: taskBackground.hideDueToColorize ? 1.0 : 0.0
                                         colorizationColor: {
                                             if (!mockTask.cfgReady) return "transparent";
                                             return mockTask.cfg.cfg_buttonColorizeDominant ?
                                                 mockTask.indicatorColor : mockTask.cfg.cfg_buttonColorizeCustom;
                                         }
+                                    }
+                                }
+
+                                Rectangle {
+                                    id: previewHoverOverlay
+                                    anchors.fill: taskBackground
+                                    radius: mockTask.cfgReady ? mockTask.cfg.cfg_customHoverOverlayRadius : 0
+                                    color: "#ffffff"
+                                    opacity: (mockTask.isHovered && mockTask.cfgReady && mockTask.cfg.cfg_taskHoverEffect && mockTask.cfg.cfg_customHoverOverlayOpacity > 0) ? (mockTask.cfg.cfg_customHoverOverlayOpacity / 100) : 0.0
+                                    visible: opacity > 0
+                                    z: 1
+                                    antialiasing: true
+
+                                    Behavior on opacity {
+                                        NumberAnimation { duration: 150 }
                                     }
                                 }
 
