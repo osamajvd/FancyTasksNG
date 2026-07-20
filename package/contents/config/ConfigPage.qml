@@ -73,6 +73,12 @@ Kirigami.Page {
     property bool cfg_taskHoverEffectDefault: true
     property int cfg_taskHoverEffectStyle: 0
     property int cfg_taskHoverEffectStyleDefault: 0
+    property bool cfg_iconHoverBrighten: true
+    property bool cfg_iconHoverBrightenDefault: true
+    property bool cfg_customHoverOverlayEnabled: false
+    property bool cfg_customHoverOverlayEnabledDefault: false
+    property int cfg_customHoverOverlayOpacity: 10
+    property int cfg_customHoverOverlayOpacityDefault: 10
     property int cfg_maxTextLines: 1
     property int cfg_maxTextLinesDefault: 1
     property bool cfg_minimizeActiveTaskOnClick: true

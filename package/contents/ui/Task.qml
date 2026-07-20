@@ -896,6 +896,20 @@ Item {
         }
     }
 
+    Rectangle {
+        id: customHoverOverlay
+        anchors.fill: backgroundFrame
+        color: "#ffffff"
+        opacity: (task.highlighted && Plasmoid.configuration.taskHoverEffect && Plasmoid.configuration.customHoverOverlayEnabled) ? (Plasmoid.configuration.customHoverOverlayOpacity / 100) : 0.0
+        visible: opacity > 0
+        z: 99
+        antialiasing: true
+
+        Behavior on opacity {
+            NumberAnimation { duration: 150 }
+        }
+    }
+
 
     Component.onCompleted: {
         task.lastSeenCount = task.badgeCount;

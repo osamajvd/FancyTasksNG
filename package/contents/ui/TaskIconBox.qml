@@ -187,7 +187,7 @@ Item {
         }
 
         roundToIconSize: false
-        active: iconBox._taskHighlighted
+        active: Plasmoid.configuration.iconHoverBrighten ? iconBox._taskHighlighted : false
         enabled: true
 
         source: iconBox._taskHasModel ? iconBox.taskItem.model.decoration : ""

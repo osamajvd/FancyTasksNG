@@ -178,73 +178,110 @@ ConfigPage {
 
             Item { 
                 height: Kirigami.Units.largeSpacing 
-                visible: cfg_page.cfg_iconOnly === 1
             }
 
             CheckBox {
                 id: cfg_taskHoverEffect
-                text: Wrappers.i18n("Icon hover effects")
-                visible: cfg_page.cfg_iconOnly === 1
+                text: Wrappers.i18n("Task hover effects")
                 checked: cfg_page.cfg_taskHoverEffect
                 onToggled: cfg_page.cfg_taskHoverEffect = checked
             }
 
             RowLayout {
-                visible: cfg_page.cfg_iconOnly === 1 && cfg_taskHoverEffect.checked
-                spacing: Kirigami.Units.smallSpacing
-                Label {
-                    text: Wrappers.i18n("Hover style:")
-                }
-                ComboBox {
-                    id: cfg_taskHoverEffectStyle
-                    Layout.fillWidth: true
-                    Layout.minimumWidth: Kirigami.Units.gridUnit * 14
-                    model: [
-                        Wrappers.i18n("Simple"),
-                        Wrappers.i18n("Parabolic")
-                    ]
-                    currentIndex: cfg_page.cfg_taskHoverEffectStyle
-                    onActivated: (index) => cfg_page.cfg_taskHoverEffectStyle = index
-                }
-            }
+                visible: cfg_taskHoverEffect.checked
+                Item { implicitWidth: Kirigami.Units.gridUnit }
+                ColumnLayout {
+                    spacing: Kirigami.Units.smallSpacing
 
-            RowLayout {
-                visible: cfg_page.cfg_iconOnly === 1 && cfg_taskHoverEffect.checked
-                spacing: Kirigami.Units.smallSpacing
-                Label {
-                    text: Wrappers.i18n("Icon zoom factor (px):")
-                }
-                SpinBox {
-                    id: iconZoomFactor
-                    from: 0
-                    to: 50
-                    stepSize: 1
-                    value: cfg_page.cfg_iconZoomFactor
-                    onValueModified: cfg_page.cfg_iconZoomFactor = value
+                    CheckBox {
+                        id: cfg_iconHoverBrighten
+                        text: Wrappers.i18n("Brighten icon on hover")
+                        checked: cfg_page.cfg_iconHoverBrighten
+                        onToggled: cfg_page.cfg_iconHoverBrighten = checked
+                    }
 
-                    ToolTip.delay: 1000
-                    ToolTip.visible: hovered
-                    ToolTip.text: Wrappers.i18n("How much the icon should grow when hovered (in pixels)")
-                }
-            }
+                    CheckBox {
+                        id: cfg_customHoverOverlayEnabled
+                        text: Wrappers.i18n("Highlight button with white overlay")
+                        checked: cfg_page.cfg_customHoverOverlayEnabled
+                        onToggled: cfg_page.cfg_customHoverOverlayEnabled = checked
+                    }
 
-            RowLayout {
-                visible: cfg_page.cfg_iconOnly === 1 && cfg_taskHoverEffect.checked
-                spacing: Kirigami.Units.smallSpacing
-                Label {
-                    text: Wrappers.i18n("Zoom animation duration (ms):")
-                }
-                SpinBox {
-                    id: iconZoomDuration
-                    from: 0
-                    to: 1000
-                    stepSize: 50
-                    value: cfg_page.cfg_iconZoomDuration
-                    onValueModified: cfg_page.cfg_iconZoomDuration = value
+                    RowLayout {
+                        visible: cfg_customHoverOverlayEnabled.checked
+                        Item { implicitWidth: Kirigami.Units.gridUnit }
+                        spacing: Kirigami.Units.smallSpacing
+                        Label {
+                            text: Wrappers.i18n("Overlay opacity (%):")
+                        }
+                        SpinBox {
+                            id: cfg_customHoverOverlayOpacity
+                            from: 1
+                            to: 100
+                            stepSize: 1
+                            value: cfg_page.cfg_customHoverOverlayOpacity
+                            onValueModified: cfg_page.cfg_customHoverOverlayOpacity = value
+                        }
+                    }
 
-                    ToolTip.delay: 1000
-                    ToolTip.visible: hovered
-                    ToolTip.text: Wrappers.i18n("Duration of the zoom animation in milliseconds")
+                    RowLayout {
+                        visible: cfg_page.cfg_iconOnly === 1
+                        spacing: Kirigami.Units.smallSpacing
+                        Label {
+                            text: Wrappers.i18n("Icon zoom effect:")
+                        }
+                        ComboBox {
+                            id: cfg_taskHoverEffectStyle
+                            Layout.fillWidth: true
+                            Layout.minimumWidth: Kirigami.Units.gridUnit * 14
+                            model: [
+                                Wrappers.i18n("Simple"),
+                                Wrappers.i18n("Parabolic")
+                            ]
+                            currentIndex: cfg_page.cfg_taskHoverEffectStyle
+                            onActivated: (index) => cfg_page.cfg_taskHoverEffectStyle = index
+                        }
+                    }
+
+                    RowLayout {
+                        visible: cfg_page.cfg_iconOnly === 1
+                        spacing: Kirigami.Units.smallSpacing
+                        Label {
+                            text: Wrappers.i18n("Icon zoom factor (px):")
+                        }
+                        SpinBox {
+                            id: iconZoomFactor
+                            from: 0
+                            to: 50
+                            stepSize: 1
+                            value: cfg_page.cfg_iconZoomFactor
+                            onValueModified: cfg_page.cfg_iconZoomFactor = value
+
+                            ToolTip.delay: 1000
+                            ToolTip.visible: hovered
+                            ToolTip.text: Wrappers.i18n("How much the icon should grow when hovered (in pixels)")
+                        }
+                    }
+
+                    RowLayout {
+                        visible: cfg_page.cfg_iconOnly === 1
+                        spacing: Kirigami.Units.smallSpacing
+                        Label {
+                            text: Wrappers.i18n("Zoom animation duration (ms):")
+                        }
+                        SpinBox {
+                            id: iconZoomDuration
+                            from: 0
+                            to: 1000
+                            stepSize: 50
+                            value: cfg_page.cfg_iconZoomDuration
+                            onValueModified: cfg_page.cfg_iconZoomDuration = value
+
+                            ToolTip.delay: 1000
+                            ToolTip.visible: hovered
+                            ToolTip.text: Wrappers.i18n("Duration of the zoom animation in milliseconds")
+                        }
+                    }
                 }
             }
 
