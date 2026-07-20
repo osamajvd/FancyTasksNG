@@ -425,11 +425,30 @@ Item {
                                         return false;
                                     }
 
+                                    Rectangle {
+                                        id: previewButtonMask
+                                        x: -9999
+                                        y: -9999
+                                        width: taskBackground.width
+                                        height: taskBackground.height
+                                        radius: mockTask.cfgReady ? mockTask.cfg.cfg_customHoverOverlayRadius : 0
+                                        color: "black"
+                                        visible: true
+                                        antialiasing: true
+                                        layer.enabled: true
+                                        layer.smooth: true
+                                    }
+
                                     visible: !hideDueToDecoration
-                                    layer.enabled: hideDueToColorize
+                                    layer.enabled: (mockTask.cfgReady && mockTask.cfg.cfg_customHoverOverlayRadius > 0) || hideDueToColorize
                                     layer.effect: MultiEffect {
+                                        maskEnabled: mockTask.cfgReady && mockTask.cfg.cfg_customHoverOverlayRadius > 0
+                                        maskSource: previewButtonMask
+                                        maskThresholdMin: 0.5
+                                        maskSpreadAtMin: 1.0
+
                                         brightness: 1.0
-                                        colorization: 1.0
+                                        colorization: hideDueToColorize ? 1.0 : 0.0
                                         colorizationColor: {
                                             if (!mockTask.cfgReady) return "transparent";
                                             return mockTask.cfg.cfg_buttonColorizeDominant ?
