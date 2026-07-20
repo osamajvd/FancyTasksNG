@@ -904,7 +904,7 @@ Item {
 
         anchors {
             fill: parent
-            leftMargin: LayoutMetrics.leftMargin() + taskIconBox.width + LayoutMetrics.labelMargin
+            leftMargin: LayoutMetrics.leftMargin() + taskIconBox.width + (Plasmoid.configuration.iconLabelSpacing !== undefined ? Plasmoid.configuration.iconLabelSpacing : LayoutMetrics.labelMargin)
             topMargin: LayoutMetrics.topMargin()
             rightMargin: LayoutMetrics.rightMargin()
             bottomMargin: LayoutMetrics.bottomMargin()
@@ -917,6 +917,8 @@ Item {
         verticalAlignment: Text.AlignVCenter
         maximumLineCount: Plasmoid.configuration.maxTextLines ||
             undefined
+        font.family: (Plasmoid.configuration.useCustomLabelFontSize && Plasmoid.configuration.customLabelFontFamily !== "") ? Plasmoid.configuration.customLabelFontFamily : Kirigami.Theme.defaultFont.family
+        font.pointSize: (Plasmoid.configuration.useCustomLabelFontSize && Plasmoid.configuration.customLabelFontSize > 0) ? Plasmoid.configuration.customLabelFontSize : Kirigami.Theme.defaultFont.pointSize
 
         Accessible.ignored: true
 

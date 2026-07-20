@@ -8,6 +8,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
@@ -188,6 +189,83 @@ ConfigPage {
                     stepSize: 1
                     value: cfg_page.cfg_customHoverOverlayRadius
                     onValueModified: cfg_page.cfg_customHoverOverlayRadius = value
+                }
+            }
+
+            CheckBox {
+                id: cfg_useCustomLabelFontSize
+                visible: cfg_page.cfg_iconOnly !== 1
+                text: Wrappers.i18n("Use custom font settings")
+                checked: cfg_page.cfg_useCustomLabelFontSize
+                onToggled: cfg_page.cfg_useCustomLabelFontSize = checked
+            }
+
+            RowLayout {
+                visible: cfg_page.cfg_iconOnly !== 1 && cfg_useCustomLabelFontSize.checked
+                Item { implicitWidth: Kirigami.Units.gridUnit }
+                spacing: Kirigami.Units.smallSpacing
+
+                Label {
+                    text: Wrappers.i18n("Font:")
+                }
+
+                Button {
+                    id: fontChooserButton
+                    icon.name: "preferences-desktop-font"
+                    text: cfg_page.cfg_customLabelFontFamily !== "" ? cfg_page.cfg_customLabelFontFamily : Wrappers.i18n("System Default")
+                    onClicked: fontDialog.open()
+                }
+
+                Button {
+                    icon.name: "edit-reset"
+                    flat: true
+                    visible: cfg_page.cfg_customLabelFontFamily !== ""
+                    onClicked: cfg_page.cfg_customLabelFontFamily = ""
+                    ToolTip.text: Wrappers.i18n("Reset font family to system default")
+                    ToolTip.visible: hovered
+                    ToolTip.delay: 1000
+                }
+
+                Label {
+                    text: Wrappers.i18n("Size (pt):")
+                }
+
+                SpinBox {
+                    id: cfg_customLabelFontSize
+                    from: 6
+                    to: 72
+                    stepSize: 1
+                    value: cfg_page.cfg_customLabelFontSize
+                    onValueModified: cfg_page.cfg_customLabelFontSize = value
+                }
+
+                FontDialog {
+                    id: fontDialog
+                    title: Wrappers.i18n("Select Label Font")
+                    currentFont.family: cfg_page.cfg_customLabelFontFamily !== "" ? cfg_page.cfg_customLabelFontFamily : Kirigami.Theme.defaultFont.family
+                    currentFont.pointSize: cfg_page.cfg_customLabelFontSize > 0 ? cfg_page.cfg_customLabelFontSize : Kirigami.Theme.defaultFont.pointSize
+                    onAccepted: {
+                        cfg_page.cfg_customLabelFontFamily = selectedFont.family
+                        if (selectedFont.pointSize > 0) {
+                            cfg_page.cfg_customLabelFontSize = Math.round(selectedFont.pointSize)
+                        }
+                    }
+                }
+            }
+
+            RowLayout {
+                visible: cfg_page.cfg_iconOnly !== 1
+                spacing: Kirigami.Units.smallSpacing
+                Label {
+                    text: Wrappers.i18n("Icon to label spacing (px):")
+                }
+                SpinBox {
+                    id: cfg_iconLabelSpacing
+                    from: 0
+                    to: 50
+                    stepSize: 1
+                    value: cfg_page.cfg_iconLabelSpacing
+                    onValueModified: cfg_page.cfg_iconLabelSpacing = value
                 }
             }
 

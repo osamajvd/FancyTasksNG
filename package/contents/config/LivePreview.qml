@@ -745,7 +745,7 @@ Item {
 
                                     anchors {
                                         left: previewRoot.isVertical ? parent.left : iconBox.right
-                                        leftMargin: Kirigami.Units.smallSpacing
+                                        leftMargin: (mockTask.cfgReady && mockTask.cfg.cfg_iconLabelSpacing !== undefined) ? mockTask.cfg.cfg_iconLabelSpacing : Kirigami.Units.smallSpacing
                                         right: parent.right
                                         rightMargin: Kirigami.Units.smallSpacing
                                         top: previewRoot.isVertical ? iconBox.bottom : parent.top
@@ -756,6 +756,8 @@ Item {
                                     elide: Text.ElideRight
                                     verticalAlignment: previewRoot.isVertical ? Text.AlignTop : Text.AlignVCenter
                                     horizontalAlignment: (previewRoot.isVertical || mockTask.width < 100) ? Text.AlignHCenter : Text.AlignLeft
+                                    font.family: (mockTask.cfgReady && mockTask.cfg.cfg_useCustomLabelFontSize && mockTask.cfg.cfg_customLabelFontFamily !== "") ? mockTask.cfg.cfg_customLabelFontFamily : Kirigami.Theme.defaultFont.family
+                                    font.pointSize: (mockTask.cfgReady && mockTask.cfg.cfg_useCustomLabelFontSize && mockTask.cfg.cfg_customLabelFontSize > 0) ? mockTask.cfg.cfg_customLabelFontSize : Kirigami.Theme.defaultFont.pointSize
                                     maximumLineCount: 1
                                 }
 

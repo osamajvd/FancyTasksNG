@@ -221,6 +221,26 @@
       <min>0</min>
       <max>50</max>
     </entry>
+    <entry name="useCustomLabelFontSize" type="Bool">
+      <label>Use custom label font settings</label>
+      <default>false</default>
+    </entry>
+    <entry name="customLabelFontFamily" type="String">
+      <label>Custom label font family</label>
+      <default></default>
+    </entry>
+    <entry name="customLabelFontSize" type="Int">
+      <label>Custom label font size in points</label>
+      <default>10</default>
+      <min>6</min>
+      <max>72</max>
+    </entry>
+    <entry name="iconLabelSpacing" type="Int">
+      <label>Distance between icon and label in pixels</label>
+      <default>4</default>
+      <min>0</min>
+      <max>50</max>
+    </entry>
     <entry name="maxTextLines" type="Int">
       <label
             >The maximum number of text lines to show in a task button. 0 means no limit.</label>

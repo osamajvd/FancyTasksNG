@@ -79,6 +79,14 @@ Kirigami.Page {
     property int cfg_customHoverOverlayOpacityDefault: 0
     property int cfg_customHoverOverlayRadius: 0
     property int cfg_customHoverOverlayRadiusDefault: 0
+    property bool cfg_useCustomLabelFontSize: false
+    property bool cfg_useCustomLabelFontSizeDefault: false
+    property string cfg_customLabelFontFamily: ""
+    property string cfg_customLabelFontFamilyDefault: ""
+    property int cfg_customLabelFontSize: 10
+    property int cfg_customLabelFontSizeDefault: 10
+    property int cfg_iconLabelSpacing: 4
+    property int cfg_iconLabelSpacingDefault: 4
     property int cfg_maxTextLines: 1
     property int cfg_maxTextLinesDefault: 1
     property bool cfg_minimizeActiveTaskOnClick: true
